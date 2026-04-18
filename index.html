@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HenrixHub — We Fulfil Your Mobile Dreams</title>
+  <meta name="description" content="Authentic iPhones, MacBooks and premium tech — sourced directly, shipped globally. HenrixHub.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="logo" onclick="goPage('home')">Henrix<span>Hub</span></div>
+  <ul class="nav-links">
+    <li><a id="nl-home"    class="active" onclick="goPage('home')">Home</a></li>
+    <li><a id="nl-shop"               onclick="goPage('shop')">Shop</a></li>
+    <li><a id="nl-about"              onclick="goPage('about')">About</a></li>
+    <li><a id="nl-contact"            onclick="goPage('contact')">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <span class="s-ic">🔍</span>
+      <input class="nav-search" id="navSearch" type="text"
+        placeholder="Search iPhones, gadgets…"
+        onkeydown="navSearchGo(event)">
+    </div>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒<span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="mob-btn" onclick="toggleMob()">☰</button>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mob-nav" id="mobNav">
+  <a onclick="goPage('home');  toggleMob()">Home</a>
+  <a onclick="goPage('shop');  toggleMob()">Shop</a>
+  <a onclick="goPage('about'); toggleMob()">About</a>
+  <a onclick="goPage('contact');toggleMob()">Contact</a>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     CART DRAWER
+══════════════════════════════════════════════════════════ -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="d-head">
+    <h3>🛒 Cart (<span id="cartQtyLabel">0</span> items)</h3>
+    <button class="close-d" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="d-items" id="cartItems"></div>
+  <div class="d-foot">
+    <div class="d-total">
+      <span>Total</span>
+      <strong id="cartTotal">₦0</strong>
+    </div>
+    <button class="wa-order" onclick="orderWA()">📲 Order via WhatsApp</button>
+    <button class="clear-c"  onclick="clearCart()">Clear Cart</button>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-inner">
+
+      <div class="hero-left">
+        <div class="hero-eyebrow">🔥 iPhone 16 Series — In Stock Now</div>
+        <h1>We Fulfil Your<br><em>Mobile Dreams.</em></h1>
+        <p class="hero-sub">
+          Authentic iPhones, MacBooks and premium tech — sourced directly,
+          shipped globally. No compromises, no middlemen, just the real thing.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-red"     onclick="goPage('shop')">Shop Now →</button>
+          <button class="btn-outline" onclick="goPage('contact')">Get in Touch</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="sn">12K<span>+</span></div><div class="sl">Happy Customers</div></div>
+          <div><div class="sn">500<span>+</span></div><div class="sl">Products</div></div>
+          <div><div class="sn">4.9<span>★</span></div><div class="sl">Rating</div></div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-phone-wrap">
+          <div class="hero-glow"></div>
+          <img class="hero-phone"
+            src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-blacktitanium?wid=800&hei=800&fmt=p-jpg&qlt=95&.v=1725388369680"
+            alt="iPhone 16 Pro Max"
+            onerror="this.src='https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black?wid=800&hei=800&fmt=p-jpg&qlt=95'">
+          <div class="hero-chip top">
+            <span class="chip-label">Latest Model</span>
+            <span class="chip-val">iPhone <span>16</span> Pro Max</span>
+          </div>
+          <div class="hero-chip bottom">
+            <span class="chip-label">Shipping</span>
+            <span class="chip-val">Worldwide <span>✈</span></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>📦 Worldwide Shipping</span>
+      <span>✅ 100% Genuine Products</span>
+      <span>📱 iPhone 16 Series In Stock</span>
+      <span>💬 WhatsApp Us Anytime</span>
+      <span>📸 Follow on Instagram</span>
+      <span>🎵 Find Us on TikTok</span>
+      <span>🔁 14-Day Return Policy</span>
+      <!-- repeat for seamless loop -->
+      <span>📦 Worldwide Shipping</span>
+      <span>✅ 100% Genuine Products</span>
+      <span>📱 iPhone 16 Series In Stock</span>
+      <span>💬 WhatsApp Us Anytime</span>
+      <span>📸 Follow on Instagram</span>
+      <span>🎵 Find Us on TikTok</span>
+      <span>🔁 14-Day Return Policy</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <section class="section">
+    <div class="section-hd">
+      <div><h2>Shop by <span>Category</span></h2><div class="sec-line"></div></div>
+      <span class="lnk" onclick="goPage('shop')">View All</span>
+    </div>
+    <div class="cat-grid" id="homeCats"></div>
+  </section>
+
+  <!-- Flash Sale Banner -->
+  <div class="flash">
+    <div>
+      <div class="flash-label">⚡ Limited Time Offer</div>
+      <div class="flash-title">iPhone 16 Series — Now Available</div>
+      <p class="flash-sub">Limited stock. Contact us before it's gone.</p>
+    </div>
+    <div class="cdown">
+      <div class="cb"><span class="cn" id="hrs">00</span><span class="cl">Hours</span></div>
+      <div class="cb"><span class="cn" id="mins">00</span><span class="cl">Mins</span></div>
+      <div class="cb"><span class="cn" id="secs">00</span><span class="cl">Secs</span></div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <section class="section section-alt">
+    <div class="section-hd">
+      <div><h2>Featured <span>Products</span></h2><div class="sec-line"></div></div>
+      <span class="lnk" onclick="goPage('shop')">View All</span>
+    </div>
+    <div class="prod-grid" id="featuredGrid"></div>
+  </section>
+
+  <!-- Promo Strip -->
+  <div class="promo-strip">
+    <div class="pc">
+      <div class="pc-ic">🚚</div>
+      <div><div class="pc-t">Worldwide Delivery</div>
+      <div class="pc-d">Fast, tracked and insured shipping to your door — anywhere in the world.</div></div>
+    </div>
+    <div class="pc">
+      <div class="pc-ic">💬</div>
+      <div><div class="pc-t">Reach Us Everywhere</div>
+      <div class="pc-d">WhatsApp, Instagram or TikTok — we're always reachable and always fast.</div></div>
+    </div>
+    <div class="pc">
+      <div class="pc-ic">✅</div>
+      <div><div class="pc-t">100% Authentic</div>
+      <div class="pc-d">Every product sourced directly and verified before it ships.</div></div>
+    </div>
+  </div>
+
+  <!-- Why HenrixHub -->
+  <section class="section">
+    <div class="section-hd">
+      <div><h2>Why <span>HenrixHub?</span></h2><div class="sec-line"></div></div>
+    </div>
+    <div class="why-grid">
+      <div class="wc"><div class="wc-ic">📱</div><div class="wc-t">iPhone Specialists</div>
+        <p class="wc-d">Every iPhone — from SE to 16 Pro Max. Every storage. Every colour.</p></div>
+      <div class="wc"><div class="wc-ic">💬</div><div class="wc-t">Always Reachable</div>
+        <p class="wc-d">WhatsApp, Instagram, TikTok — pick your platform, we're there.</p></div>
+      <div class="wc"><div class="wc-ic">🔁</div><div class="wc-t">Easy Returns</div>
+        <p class="wc-d">14-day hassle-free returns. Your satisfaction is all that matters.</p></div>
+      <div class="wc"><div class="wc-ic">🌍</div><div class="wc-t">Global Brand</div>
+        <p class="wc-d">Serving customers across Nigeria, UK, USA, Canada and beyond.</p></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Be First for <span style="color:var(--red)">New Arrivals & Deals</span></h2>
+    <p>Join thousands of tech lovers who get HenrixHub drops straight to their inbox.</p>
+    <div class="nl-form">
+      <input type="email" id="nlEmail" placeholder="Your email address">
+      <button onclick="subNL()">Subscribe</button>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ══════════════════════════════════════════════════════════
+     SHOP PAGE
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-shop">
+  <div class="shop-wrap">
+
+    <aside class="filters">
+      <div class="f-title">Filters</div>
+
+      <div class="f-group">
+        <h4>Category</h4>
+        <div id="filterCatList"></div>
+      </div>
+
+      <div class="f-group">
+        <h4>Condition</h4>
+        <label class="f-opt"><input type="checkbox" value="New"      onchange="applyFilters()"> New</label>
+        <label class="f-opt"><input type="checkbox" value="Used"     onchange="applyFilters()"> Used</label>
+        <label class="f-opt"><input type="checkbox" value="Open Box" onchange="applyFilters()"> Open Box</label>
+      </div>
+
+      <div class="f-group">
+        <h4>iPhone Generation</h4>
+        <div id="filterModelList"></div>
+      </div>
+
+      <div class="f-group">
+        <h4>Price Range (₦)</h4>
+        <div class="p-range">
+          <input class="p-inp" type="number" id="priceMin" placeholder="Min" oninput="applyFilters()">
+          <span style="color:#999;font-size:.8rem">–</span>
+          <input class="p-inp" type="number" id="priceMax" placeholder="Max" oninput="applyFilters()">
+        </div>
+      </div>
+
+      <button class="f-btn"       onclick="applyFilters()">Apply Filters</button>
+      <button class="f-btn ghost" onclick="resetFilters()">Reset All</button>
+    </aside>
+
+    <div class="shop-main">
+      <div class="shop-search-bar">
+        <input type="text" id="shopSearch" placeholder="Search iPhones, MacBooks, accessories…" oninput="applyFilters()">
+        <button onclick="applyFilters()">Search</button>
+      </div>
+      <div class="pills"    id="shopPills"></div>
+      <div class="shop-top">
+        <div class="shop-count" id="shopCount">All products</div>
+        <select class="shop-sort" id="shopSort" onchange="applyFilters()">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-az">Name A–Z</option>
+          <option value="rating">Top Rated</option>
+          <option value="newest">Newest First</option>
+        </select>
+      </div>
+      <div class="prod-grid" id="shopGrid"></div>
+    </div>
+
+  </div>
+</div><!-- /page-shop -->
+
+<!-- ══════════════════════════════════════════════════════════
+     PRODUCT DETAIL PAGE
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-detail">
+  <div class="back-btn" onclick="goBack()">← Back</div>
+  <div class="detail-wrap" id="detailContent"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-wrap">
+
+    <div class="about-top">
+      <div>
+        <div class="a-tag">About HenrixHub</div>
+        <h1 class="a-h1">We Fulfil Your <span>Mobile Dreams.</span></h1>
+        <p class="a-p">HenrixHub was built on one promise — give everyone access to the world's best technology at honest prices. From flagship iPhones to MacBooks and premium accessories, every product we sell is genuine, tested and shipped with care.</p>
+        <p class="a-p">Based in Lagos, Nigeria, we serve customers across Africa, Europe, North America and beyond. Follow us on Instagram and TikTok, and reach us instantly on WhatsApp.</p>
+        <button class="btn-red" onclick="goPage('shop')" style="margin-top:1.2rem">Browse Products →</button>
+      </div>
+      <div class="a-img">📱💻🎮</div>
+    </div>
+
+    <div class="section-hd">
+      <div><h2>What We <span>Stand For</span></h2><div class="sec-line"></div></div>
+    </div>
+    <div class="about-vals">
+      <div class="vc"><span class="vc-ic">🎯</span><div class="vc-t">Customer First</div>
+        <div class="vc-d">Every decision starts with what's best for you. Satisfaction is our only metric.</div></div>
+      <div class="vc"><span class="vc-ic">🔒</span><div class="vc-t">Always Authentic</div>
+        <div class="vc-d">Zero counterfeits. Zero compromises. Just genuine products you can trust.</div></div>
+      <div class="vc"><span class="vc-ic">🌍</span><div class="vc-t">Global Reach</div>
+        <div class="vc-d">Lagos to London, Abuja to Atlanta — we ship worldwide.</div></div>
+    </div>
+
+    <div style="margin-top:4rem">
+      <div class="section-hd">
+        <div><h2>The <span>Team</span></h2><div class="sec-line"></div></div>
+      </div>
+      <div class="team-grid">
+        <div class="tc"><div class="tc-img">👨🏾‍💼</div><div class="tc-info">
+          <div class="tc-name">Henry Okafor</div><div class="tc-role">Founder & CEO</div></div></div>
+        <div class="tc"><div class="tc-img">👩🏾‍💻</div><div class="tc-info">
+          <div class="tc-name">Amara Nwosu</div><div class="tc-role">Head of Operations</div></div></div>
+        <div class="tc"><div class="tc-img">👨🏾‍🔧</div><div class="tc-info">
+          <div class="tc-name">Dele Adeyemi</div><div class="tc-role">Product Specialist</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="newsletter">
+    <h2>Stay in the Loop</h2>
+    <p>New arrivals, restocks and deals — direct to your inbox.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Your email">
+      <button>Subscribe</button>
+    </div>
+  </section>
+</div><!-- /page-about -->
+
+<!-- ══════════════════════════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-wrap">
+    <div class="a-tag">Get In Touch</div>
+    <div class="contact-grid">
+
+      <div class="ci-blk">
+        <h2>Reach Us on <span>Any Platform</span></h2>
+        <p>Looking for a specific model? Need a bulk order? Have a question? We're on WhatsApp, Instagram and TikTok — pick whatever works for you.</p>
+
+        <div class="cinfo">
+          <div class="cinfo-ic">📍</div>
+          <div><div class="cinfo-lbl">Address</div><div class="cinfo-val">Lagos, Nigeria</div></div>
+        </div>
+        <div class="cinfo">
+          <div class="cinfo-ic">📞</div>
+          <div><div class="cinfo-lbl">Phone</div><div class="cinfo-val">+234 800 000 0000</div></div>
+        </div>
+        <div class="cinfo">
+          <div class="cinfo-ic">✉️</div>
+          <div><div class="cinfo-lbl">Email</div><div class="cinfo-val">hello@henrixhub.com</div></div>
+        </div>
+        <div class="cinfo">
+          <div class="cinfo-ic">🕐</div>
+          <div><div class="cinfo-lbl">Hours</div>
+          <div class="cinfo-val">Mon–Sat: 8am – 8pm · Sunday: 10am – 5pm</div></div>
+        </div>
+
+        <div class="soc-btns">
+          <button class="soc-btn wa" onclick="window.open('https://wa.me/2348000000000?text=Hi HenrixHub!','_blank')">💬 WhatsApp</button>
+          <button class="soc-btn ig" onclick="window.open('https://instagram.com/henrixhub','_blank')">📸 Instagram</button>
+          <button class="soc-btn tk" onclick="window.open('https://tiktok.com/@henrixhub','_blank')">🎵 TikTok</button>
+        </div>
+      </div>
+
+      <div class="cf">
+        <h3>Send a Message</h3>
+        <div class="f-row">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="John"></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="john@example.com"></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+234 800 000 0000"></div>
+        <div class="fg">
+          <label>Subject</label>
+          <select>
+            <option>Product Inquiry</option>
+            <option>Bulk Order</option>
+            <option>Delivery Issue</option>
+            <option>Returns & Refunds</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea placeholder="Tell us how we can help…"></textarea></div>
+        <button class="cf-btn" onclick="submitForm()">Send Message →</button>
+        <div class="f-ok" id="formOk">✅ Message sent! We'll reply within 24 hours.</div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /page-contact -->
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer id="siteFooter">
+  <div class="ft-grid">
+    <div>
+      <span class="ft-logo" onclick="goPage('home')">Henrix<span>Hub</span></span>
+      <p class="ft-desc">We fulfil your mobile dreams. Authentic iPhones and premium tech — verified, sourced directly, delivered worldwide.</p>
+      <div class="ft-socs">
+        <button class="ft-soc wa" onclick="window.open('https://wa.me/2348000000000','_blank')">💬 WhatsApp</button>
+        <button class="ft-soc ig" onclick="window.open('https://instagram.com/henrixhub','_blank')">📸 Instagram</button>
+        <button class="ft-soc tk" onclick="window.open('https://tiktok.com/@henrixhub','_blank')">🎵 TikTok</button>
+      </div>
+    </div>
+
+    <div class="ft-col">
+      <h4>Shop</h4>
+      <ul class="ft-links">
+        <li><span onclick="goShopCat('iPhones')">iPhones</span></li>
+        <li><span onclick="goShopCat('Laptops')">MacBooks & Laptops</span></li>
+        <li><span onclick="goShopCat('Gaming')">Gaming</span></li>
+        <li><span onclick="goShopCat('Audio')">Audio</span></li>
+        <li><span onclick="goShopCat('Accessories')">Accessories</span></li>
+      </ul>
+    </div>
+
+    <div class="ft-col">
+      <h4>Support</h4>
+      <ul class="ft-links">
+        <li><span onclick="goPage('contact')">Contact Us</span></li>
+        <li><span>FAQs</span></li>
+        <li><span>Returns Policy</span></li>
+        <li><span>Terms of Service</span></li>
+        <li><span>Privacy Policy</span></li>
+      </ul>
+    </div>
+
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <div class="fci"><span class="fci-ic">📍</span>Lagos, Nigeria</div>
+      <div class="fci"><span class="fci-ic">📞</span>+234 800 000 0000</div>
+      <div class="fci"><span class="fci-ic">✉️</span>hello@henrixhub.com</div>
+    </div>
+  </div>
+
+  <div class="ft-bottom">
+    <p>© 2026 <span>HenrixHub</span>. All rights reserved.</p>
+    <div class="pay-row">
+      <span style="color:rgba(255,255,255,.25);font-size:.7rem;margin-right:.4rem">Secured by:</span>
+      <div class="pp">Paystack</div>
+      <div class="pp">Flutterwave</div>
+      <div class="pp">Bank Transfer</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS — data first, then app logic
+══════════════════════════════════════════════════════════ -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
