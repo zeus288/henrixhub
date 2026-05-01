@@ -62,31 +62,33 @@ img {
   max-width: 100%;
 }
 
-.page {
-  display: none;
-}
 
-.page.active {
-  display: block;
-}
 
 /* NAV */
-nav {
-  position: fixed;
+.header {
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 200;
-  height: 68px;
+  background: #fff;
+  height: 96px;
   background: var(--white);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 1px 8px rgba(0, 0, 0, .06);
+}
+
+/* Adjust nav (remove fixed from nav itself) */
+nav {
+  position: relative;
+  /* CHANGE THIS */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 4%;
   gap: 1rem;
 }
+
 
 .logo {
   font-size: 1.5rem;
@@ -128,29 +130,42 @@ nav {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  flex-shrink: 0;
+  /* prevents it from collapsing */
 }
 
-.search-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
+.top-search {
+  width: 100%;
+  padding: 0.5rem 4%;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
 }
 
-.nav-search {
+.top-search input {
+  width: 100%;
+  padding: 0.6rem 1rem;
   border: 1.5px solid var(--border);
-  padding: .45rem 1rem .45rem 2.2rem;
-  font-size: .82rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
   outline: none;
-  width: 220px;
-  background: var(--off);
-  border-radius: 20px;
-  transition: border-color .2s, width .3s;
 }
 
-.nav-search:focus {
+.top-search input:focus {
   border-color: var(--red);
-  width: 260px;
 }
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+.nav-links a {
+  user-select: none;
+  cursor: pointer;
+}
+
 
 .s-ic {
   position: absolute;
@@ -280,13 +295,12 @@ nav {
 .hero-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
   align-items: center;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
   z-index: 2;
-  padding: 4rem 0 0 0;
+  padding: 6rem 0 0 0;
 }
 
 .hero-eyebrow {
@@ -401,8 +415,6 @@ nav {
 
 /* Hero right image panel */
 .hero-right {
-  position: relative;
-  display: flex;
   align-items: center;
   justify-content: center;
   min-height: 420px;
@@ -496,7 +508,7 @@ nav {
 
 /* SECTIONS */
 .section {
-  padding: 4.5rem 5%;
+  padding: 2rem 5%;
 }
 
 
@@ -555,7 +567,7 @@ nav {
 .cat-card {
 
   flex: 1;
-  min-width: 95px;
+  min-width: 105px;
   max-width: 126px;
   display: flex;
   flex-direction: column;
@@ -564,8 +576,7 @@ nav {
   padding: 1.5rem .8rem;
   cursor: pointer;
   transition: transform .2s;
-  background: #F3F3F3;
-  border-radius: 50%;
+
 
 }
 
@@ -2312,7 +2323,6 @@ footer {
 @media (max-width: 960px) {
   .hero-inner {
     grid-template-columns: 1fr;
-    text-align: center;
   }
 
   .hero-sub {
@@ -2327,10 +2337,6 @@ footer {
 
   .hero-stats {
     justify-content: center;
-  }
-
-  .hero-right {
-    display: none;
   }
 
   .prod-grid {
@@ -2467,5 +2473,294 @@ footer {
 
   .prod-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ============================================================
+   HenrixHub — Responsive Fix Patch
+   Add this AFTER your existing style.css, or merge these
+   rules into the existing @media blocks to override them.
+   ============================================================ */
+
+/* ── HERO: Lock the two-column layout at ALL screen sizes ── */
+.hero {
+  min-height: auto;
+  padding: 0 4%;
+}
+
+.hero-inner {
+  /* Always keep the two-column grid — never collapse to 1fr */
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  padding: 0 3rem;
+  gap: 2rem;
+}
+
+/* Hero left: always left-aligned */
+.hero-sub {
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.hero-btns {
+  justify-content: flex-start !important;
+}
+
+.hero-stats {
+  justify-content: flex-start !important;
+}
+
+.hero-eyebrow {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Hero right image: always visible */
+.hero-right {
+  min-height: 280px;
+}
+
+.hero-phone,
+.hero-right img {
+  max-width: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+
+
+/* ── PRODUCT GRID: keep 2 columns minimum ── */
+@media (max-width: 960px) {
+  .prod-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Hero font sizes: scale down slightly but keep structure */
+  .hero h1 {
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    letter-spacing: -1px;
+  }
+
+  .hero-sub {
+    font-size: 0.82rem;
+  }
+
+  .btn-red,
+  .btn-outline {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-stats {
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+  }
+
+  .sn {
+    font-size: 1.3rem;
+  }
+
+  /* Promo strip: keep 3 columns but allow wrap */
+  .promo-strip {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem;
+  }
+
+  .pc {
+    padding: 1.2rem 0.8rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pc-ic {
+    font-size: 1.3rem;
+  }
+
+  .pc-t {
+    font-size: 0.78rem;
+  }
+
+  .pc-d {
+    font-size: 0.68rem;
+  }
+
+  /* Why grid: keep 4 columns at medium */
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Flash banner */
+  .flash {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem;
+  }
+
+  .flash-title {
+    font-size: 1.2rem;
+  }
+
+  /* Footer grid */
+  .ft-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Shop: stack sidebar below on small */
+  .shop-wrap {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contact and About grids */
+  .contact-grid,
+  .about-top {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+  }
+
+  .detail-wrap {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  /* Nav: hide text links, show hamburger */
+  .nav-links {
+    display: none !important;
+  }
+
+  .mob-btn {
+    display: block !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Hero: maintain 2 columns even on mobile — just scale things down */
+  .hero-inner {
+    grid-template-columns: 1fr 1fr !important;
+    padding: 4rem 0 2rem !important;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.1rem, 5vw, 1.6rem);
+    letter-spacing: -0.5px;
+    margin-bottom: 0.7rem;
+  }
+
+  .hero-sub {
+    font-size: 0.7rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-red,
+  .btn-outline {
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.72rem;
+  }
+
+  .hero-stats {
+    display: none;
+    /* hide stats on very small screens to save space */
+  }
+
+  .hero-right {
+    min-height: 180px;
+  }
+
+  /* Nav search: shrink */
+  .nav-search {
+    width: 100px !important;
+  }
+
+  /* Promo strip: 1 column on very small */
+  .promo-strip {
+    grid-template-columns: 1fr !important;
+    margin: 1.5rem 3%;
+  }
+
+  /* Product grid: 2 columns still */
+  .prod-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem;
+  }
+
+  .prod-img {
+    height: 140px;
+  }
+
+  .prod-name {
+    font-size: 0.75rem;
+  }
+
+  .prod-price {
+    font-size: 0.85rem;
+  }
+
+  /* Cat cards */
+  .cat-grid {
+    gap: 0.5rem;
+  }
+
+  .cat-card {
+    min-width: 70px;
+    max-width: 90px;
+  }
+
+  .cat-circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cat-ic {
+    font-size: 1.4rem;
+  }
+
+  /* Flash banner */
+  .cdown {
+    gap: 0.4rem;
+  }
+
+  .cb {
+    padding: 0.5rem 0.5rem;
+    min-width: 44px;
+  }
+
+  .cn {
+    font-size: 1.2rem;
+  }
+
+  /* Footer: 1 column */
+  .ft-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 0.62rem;
+  }
+
+  .hero-inner {
+    gap: 0.5rem;
+    padding: 3.5rem 0 1.5rem !important;
+  }
+
+  .hero-right {
+    min-height: 140px;
   }
 }
