@@ -564,7 +564,7 @@ nav {
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
+  flex-wrap: nowrap;
 }
 
 
@@ -2504,7 +2504,7 @@ footer {
   display: flex;
   align-items: center;
   gap: .8rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   opacity: 1;
 }
 
